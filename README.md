@@ -14,7 +14,7 @@ It's a txt file with the following format:
 Foo north=Bar west=Baz south=Qu-ux
 Bar south=Foo west=Bee
 ```
-Assumption: the data should be consistent (e.g.: if `Foo north=Bar`, there should also be `Bar south=Foo`), otherwise it will throw an exception
+Assumption: the data should be consistent (e.g.: if `Foo north=Bar`, there should also be `Bar south=Foo`), otherwise it will throw an exception (see `TestLoadCityMapFailure`)
 
 ## Run Tests
 Just run `make test` or `go test <local_test_dir>` to run specific tests.

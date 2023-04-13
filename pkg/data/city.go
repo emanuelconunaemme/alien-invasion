@@ -93,9 +93,18 @@ func (c *City) HasFight() bool {
 	return c.Aliens != nil && len(c.Aliens) > 1
 }
 
+func (c *City) GetNeighbor(dir Direction) *Neighbor {
+	for _, neighbor := range c.Neighbors {
+		if neighbor.Direction == dir {
+			return neighbor
+		}
+	}
+	return nil
+}
+
 // pardon my Kotlin/Java and there is a more idiomatic way to do it
-func (d *Direction) ToString() string {
-	return directionsStringMap[*d]
+func (d Direction) ToString() string {
+	return directionsStringMap[d]
 }
 
 func (c *City) ToString() string {
