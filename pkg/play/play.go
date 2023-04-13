@@ -19,7 +19,7 @@ func Play(inputFile string, aliensNumber int, verbose bool) error {
 	state := InitState(cities, aliens)
 
 	rounds := 0
-	verbosePrint(state.ToString(), verbose)
+	fmt.Printf(state.ToString())
 	// destroy cities from initial state
 	for _, city := range state.Cities {
 		if city.HasFight() {
@@ -30,18 +30,19 @@ func Play(inputFile string, aliensNumber int, verbose bool) error {
 	for {
 		// move each alien
 		for _, alien := range state.Aliens {
-			newCity := MoveAlien(&state, alien)
+			newCity := MoveAlien(&state, alien.Name)
 			if newCity == nil {
 				// the alien is isolated, we just move to the next alien
-				fmt.Printf("%s is stuck\n", alien.Name)
+				printInfo(fmt.Sprintf("%s is stuck", alien.Name))
 				continue
 			} else {
-				fmt.Printf("%s moved to %s\n", alien.Name, newCity.Name)
+				printInfo(fmt.Sprintf("%s moved to %s", alien.Name, newCity.Name))
 				verbosePrint(state.ToString(), verbose)
 			}
 			if newCity.HasFight() {
 				DestroyCity(&state, newCity.Name)
 				printCityDestroyed(newCity.Name, newCity.Aliens[0].Name, newCity.Aliens[1].Name)
+				break
 			}
 		}
 
@@ -69,5 +70,9 @@ func printGameOver(reason string) {
 }
 
 func printCityDestroyed(city string, alien1 string, alien2 string) {
-	fmt.Printf("%s has been destroyed by %s and %s!\n", city, alien1, alien2)
+	printInfo(fmt.Sprintf("%s has been destroyed by %s and %s!", city, alien1, alien2))
+}
+
+func printInfo(info string) {
+	fmt.Printf("[INFO] %s\n", info)
 }

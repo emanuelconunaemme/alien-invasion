@@ -1,7 +1,6 @@
 package operations
 
 import (
-	"fmt"
 	"math/rand"
 	. "saga/aliens/pkg/data"
 	"time"
@@ -20,7 +19,6 @@ func InitState(cities []*City, aliens []*Alien) State {
 		if state.Cities[cityIndex].Aliens == nil {
 			state.Cities[cityIndex].Aliens = []*Alien{}
 		}
-		fmt.Printf("*** %s in %s\n", alien.Name, state.Cities[cityIndex].Name)
 		state.Cities[cityIndex].Aliens = append(state.Cities[cityIndex].Aliens, alien)
 	}
 
@@ -54,11 +52,11 @@ func DestroyCity(state *State, cityName string) bool {
 }
 
 // move alien and returns the city
-func MoveAlien(state *State, alien *Alien) *City {
+func MoveAlien(state *State, alienName string) *City {
 	for _, city := range state.Cities {
 		for _, alien := range city.Aliens {
 			// found the alien
-			if alien.Name == alien.Name {
+			if alien.Name == alienName {
 				// cannot move anywhere
 				if city.IsIsolated() {
 					return nil

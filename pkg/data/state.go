@@ -20,6 +20,9 @@ func (s *State) IsTerminal() (bool, string) {
 	if len(s.Aliens) == 0 {
 		return true, "No alien left"
 	}
+	if len(s.Aliens) == 1 {
+		return true, "Only 1 alien left"
+	}
 
 	// only isolated cities, no aliens can move => terminal state
 	isolated := true

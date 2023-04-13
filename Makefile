@@ -12,7 +12,7 @@ build:
 	go build -o $(BINARY)
 
 run: build
-	./$(BINARY) --verbose
+	./$(BINARY) 
 
 clean:
 	go clean
