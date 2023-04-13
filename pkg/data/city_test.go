@@ -86,3 +86,25 @@ func TestAliens(t *testing.T) {
 	assert.False(t, city.HasAlien(alien1), "city shouldn't have alien1")
 	assert.True(t, city.HasAlien(alien2), "city should have alien2")
 }
+
+func TestConnection(t *testing.T) {
+	// isolated
+	city := &City{
+		Name: "Foo",
+	}
+	assert.True(t, city.IsIsolated())
+	assert.False(t, city.IsConnected())
+
+	// connected
+	city = &City{
+		Name: "Foo",
+		Neighbors: []*Neighbor{
+			{
+				City:      &City{Name: "Bar"},
+				Direction: North,
+			},
+		},
+	}
+	assert.False(t, city.IsIsolated())
+	assert.True(t, city.IsConnected())
+}

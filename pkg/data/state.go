@@ -21,10 +21,20 @@ func (s *State) IsTerminal() bool {
 			continue
 		}
 		// there is an alien that can move, NOT a terminal state
-		if city.Neighbors != nil && len(city.Neighbors) > 0 {
+		if city.IsConnected() {
 			isolated = false
 			break
 		}
 	}
 	return isolated
+}
+
+func (s *State) KillAlien(alien *Alien) bool {
+	for i, a := range s.Aliens {
+		if a.Name == alien.Name {
+			s.Aliens = append(s.Aliens[:i], s.Aliens[i+1:]...)
+			return true
+		}
+	}
+	return false
 }

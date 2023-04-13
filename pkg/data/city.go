@@ -134,3 +134,11 @@ func (c *City) AddAlien(alien *Alien) {
 	}
 	c.Aliens = append(c.Aliens, alien)
 }
+
+func (c *City) IsConnected() bool {
+	return c.Neighbors != nil && len(c.Neighbors) > 0
+}
+
+func (c *City) IsIsolated() bool {
+	return !c.IsConnected()
+}

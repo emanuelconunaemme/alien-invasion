@@ -21,3 +21,5 @@ Just run `make test` or `go test <local_test_dir>` to run specific tests.
 
 ## Further Optimizations
 For sake of simplicity there is not a lot of redundancy. Although, for improved efficiency it's advised to introduce redundant data structures to avoid sequential access of large arrays. E.g.: keep a pointer in the aliens list of the current city for each alien to avoid iterating through the city to find the alien.
+
+Also, the implementation lean towards readability rather than performance, having several duplicated sequential accesses. Improving the performance would require a slightly different approach.
