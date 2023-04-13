@@ -1,5 +1,9 @@
 package data
 
+import (
+	"strings"
+)
+
 type State struct {
 	Cities []*City
 	Aliens []*Alien
@@ -8,10 +12,13 @@ type State struct {
 // not sure there is a kotlin bias here on having the state determine itself
 
 // Terminal state => The game is over
-func (s *State) IsTerminal() bool {
+func (s *State) IsTerminal() (bool, string) {
 	// no cities or no aliens
-	if len(s.Cities) == 0 || len(s.Aliens) == 0 {
-		return true
+	if len(s.Cities) == 0 {
+		return true, "No city left"
+	}
+	if len(s.Aliens) == 0 {
+		return true, "No alien left"
 	}
 
 	// only isolated cities, no aliens can move => terminal state
@@ -26,7 +33,11 @@ func (s *State) IsTerminal() bool {
 			break
 		}
 	}
-	return isolated
+	if isolated {
+		return true, "Cities are isolated"
+	} else {
+		return false, ""
+	}
 }
 
 func (s *State) KillAlien(alien *Alien) bool {
@@ -37,4 +48,23 @@ func (s *State) KillAlien(alien *Alien) bool {
 		}
 	}
 	return false
+}
+
+// pardon the kotlin not sure in golang there is a more idiomatic way to do it
+func (s *State) ToString() string {
+	var sb strings.Builder
+	sb.WriteString("=============\n")
+	for _, city := range s.Cities {
+		sb.WriteString(city.Name + ":")
+		if city.Aliens == nil || len(city.Aliens) == 0 {
+			sb.WriteString(" empty")
+		} else {
+			for _, alien := range city.Aliens {
+				sb.WriteString(" " + alien.Name)
+			}
+		}
+		sb.WriteString("\n")
+	}
+	sb.WriteString("=============\n")
+	return sb.String()
 }

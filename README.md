@@ -4,7 +4,7 @@ Golang solution for the SAGA Alien Invasion problem.
 ## Build and Run
 From root directory
 - `go build`
-- `./aliens --aliensNumber=<N> --inputFile=<input_file_path>` with `N` as the number of aliens playing the game.
+- `./aliens --aliensNumber=<N> --inputFile=<input_file_path> --verbose` with `N` as the number of aliens playing the game.
 
 Alternative `make run` for faster iterations with the default params.
 

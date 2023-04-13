@@ -1,6 +1,7 @@
 package operations
 
 import (
+	"fmt"
 	"math/rand"
 	. "saga/aliens/pkg/data"
 	"time"
@@ -19,6 +20,7 @@ func InitState(cities []*City, aliens []*Alien) State {
 		if state.Cities[cityIndex].Aliens == nil {
 			state.Cities[cityIndex].Aliens = []*Alien{}
 		}
+		fmt.Printf("*** %s in %s\n", alien.Name, state.Cities[cityIndex].Name)
 		state.Cities[cityIndex].Aliens = append(state.Cities[cityIndex].Aliens, alien)
 	}
 

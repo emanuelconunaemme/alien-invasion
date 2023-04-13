@@ -38,16 +38,24 @@ func TestTerminalState(t *testing.T) {
 
 	// all city destroyed
 	state := State{Cities: nil, Aliens: aliens}
-	assert.True(t, state.IsTerminal())
+	isTerminal, reason := state.IsTerminal()
+	assert.True(t, isTerminal)
+	assert.Equal(t, reason, "No city left")
 	// all aliens destroyed
 	state = State{Cities: cities, Aliens: nil}
-	assert.True(t, state.IsTerminal())
+	isTerminal, reason = state.IsTerminal()
+	assert.True(t, isTerminal)
+	assert.Equal(t, reason, "No alien left")
 	// disconnected city (2 aliens in baz cannot go anywhere)
 	state = State{Cities: cities, Aliens: aliens}
-	assert.True(t, state.IsTerminal())
+	isTerminal, reason = state.IsTerminal()
+	assert.True(t, isTerminal)
+	assert.Equal(t, reason, "Cities are isolated")
 
 	// moving aliens to "Foo" which is connected to "Bar"
 	cities[2].Aliens = nil
 	cities[0].Aliens = aliens
-	assert.False(t, state.IsTerminal())
+	isTerminal, reason = state.IsTerminal()
+	assert.False(t, isTerminal)
+	assert.Equal(t, reason, "")
 }
